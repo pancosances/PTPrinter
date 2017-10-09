@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<print-service android:label="TransferPrintService"
+    android:vendor="PANCO Brothers s.r.o."
+    xmlns:android="http://schemas.android.com/apk/res/android" />

@@ -1,0 +1,2 @@
+include ':app', ':PdfBox'
+project(':PdfBox').projectDir = new File('app/libs/PdfBox')
