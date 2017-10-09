@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/PTPrinter.iml" filepath="$PROJECT_DIR$/PTPrinter.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/libs/PdfBox/PdfBox.iml" filepath="$PROJECT_DIR$/app/libs/PdfBox/PdfBox.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/libs/PdfBox/PdfBox.iml" filepath="$PROJECT_DIR$/app/libs/PdfBox/PdfBox.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

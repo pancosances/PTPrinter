@@ -1,6 +1,5 @@
 package eu.panco.ptprinter.printerservice;
 
-import android.os.Parcelable;
 import android.print.PrinterId;
 import android.print.PrinterInfo;
 import android.printservice.PrintService;
@@ -9,26 +8,24 @@ import android.printservice.PrinterDiscoverySession;
 import java.util.ArrayList;
 import java.util.List;
 
+import eu.panco.ptprinter.bluetoothservice.BluetoothService;
+
 public class PTPrinterDiscoverySession extends PrinterDiscoverySession {
 
-    private final PrintService service;
+    private final PrintService printService;
+    private final BluetoothService bluetoothService;
+    private BluetoothPrinter printer;
 
 
     public PTPrinterDiscoverySession(PrintService service) {
-        this.service = service;
+        this.printService = service;
+        this.bluetoothService = new BluetoothService();
     }
 
     @Override
     public void onStartPrinterDiscovery(List<PrinterId> printerList) {
-        //BluetoothDeviceService bds = new BluetoothDeviceService();
-        //bds.getBluetoothPrinter();
-
-
-        PrinterId pi = this.service.generatePrinterId("BluetoothPrinter");
-        PrinterInfo printerInfo = new PrinterInfo.Builder(pi, "BluetoothPrinterName", PrinterInfo.STATUS_IDLE).build();
-        List<PrinterInfo> infos = new ArrayList<>();
-        infos.add(printerInfo);
-        addPrinters(infos);
+        //this.printer = new BluetoothPrinter(printService);
+        //updatePrinterStatus();
     }
 
     @Override
@@ -43,22 +40,7 @@ public class PTPrinterDiscoverySession extends PrinterDiscoverySession {
 
     @Override
     public void onStartPrinterStateTracking(PrinterId printerId) {
-       /*
-        PrinterInfo.Builder builder = new PrinterInfo.Builder(printerId, PRINTER, PrinterInfo.STATUS_IDLE);
-        PrinterCapabilitiesInfo.Builder capBuilder = new PrinterCapabilitiesInfo.Builder(printerId);
 
-        capBuilder.addMediaSize(PrintAttributes.MediaSize.ISO_A4, true);
-        capBuilder.addResolution(new PrintAttributes.Resolution("Default", "Default", 360, 360), true);
-        capBuilder.setColorModes(PrintAttributes.COLOR_MODE_COLOR + PrintAttributes.COLOR_MODE_MONOCHROME, PrintAttributes.COLOR_MODE_COLOR);
-        capBuilder.setMinMargins(PrintAttributes.Margins.NO_MARGINS);
-
-        PrinterCapabilitiesInfo caps = capBuilder.build();
-        builder.setCapabilities(caps);
-        PrinterInfo info = builder.build();
-        List<PrinterInfo> infos = new ArrayList<PrinterInfo>();
-        infos.add(info);
-        addPrinters(infos);
-        */
     }
 
     @Override
@@ -69,5 +51,11 @@ public class PTPrinterDiscoverySession extends PrinterDiscoverySession {
     @Override
     public void onDestroy() {
 
+    }
+
+    private void updatePrinterStatus() {
+        List<PrinterInfo> infos = new ArrayList<>();
+        infos.add(this.printer.getInfo());
+        addPrinters(infos);
     }
 }

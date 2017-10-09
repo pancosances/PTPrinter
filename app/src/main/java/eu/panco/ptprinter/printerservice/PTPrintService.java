@@ -15,6 +15,9 @@ public class PTPrintService extends PrintService {
     @Override
     protected PrinterDiscoverySession onCreatePrinterDiscoverySession() {
         return new PTPrinterDiscoverySession(this);
+
+
+
     }
 
     @Override

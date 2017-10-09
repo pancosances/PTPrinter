@@ -15,9 +15,9 @@ public class ConnectedDevice extends Thread {
     private final BluetoothSocket socket;
     private final InputStream inputStream;
     private final OutputStream outputStream;
-    private final BluetoothDeviceService service;
+    private final BluetoothService service;
 
-    public ConnectedDevice(BluetoothDeviceService service, BluetoothSocket socket) {
+    public ConnectedDevice(BluetoothService service, BluetoothSocket socket) {
         InputStream tmpIn = null;
         OutputStream tmpOut = null;
 
@@ -75,6 +75,8 @@ public class ConnectedDevice extends Thread {
 
     public void cancel() {
         try {
+            this.inputStream.close();
+            this.outputStream.close();
             this.socket.close();
         } catch (Exception e) {
             Log.e(this.getClass().getName(), "Exception", e);

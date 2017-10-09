@@ -1,6 +1,5 @@
 package eu.panco.ptprinter.bluetoothservice;
 
-import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.util.Log;
 
@@ -12,9 +11,9 @@ import java.io.IOException;
 public class ConnectingDevice extends Thread {
 
     private final BluetoothSocket socket;
-    private final BluetoothDeviceService service;
+    private final BluetoothService service;
 
-    public ConnectingDevice(BluetoothDeviceService service) {
+    public ConnectingDevice(BluetoothService service) {
         this.service = service;
         BluetoothSocket tmp = null;
 

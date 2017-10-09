@@ -31,7 +31,7 @@ public class PrinterQueue {
             service = new BluetoothPrinterService();
         }
         if (service.getState() != BluetoothDeviceState.CONNECTED) {
-            /*BluetoothPrinter printer = BluetoothDeviceService.getBluetoothPrinter();
+            /*BluetoothPrinter printer = BluetoothService.getBluetoothPrinter();
             service.connect(printer.getDevice());*/
             return;
         }
