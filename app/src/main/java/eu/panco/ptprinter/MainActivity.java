@@ -1,17 +1,11 @@
 package eu.panco.ptprinter;
 
-import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothSocket;
-import android.content.BroadcastReceiver;
+import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.print.PrintDocumentAdapter;
 import android.print.PrintJob;
 import android.print.PrintManager;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 //import org.apache.pdfbox.util.PDFBoxResourceLoader;
@@ -28,7 +22,7 @@ import eu.panco.ptprinter.printerservice.PrintDocument;
 import eu.panco.ptprinter.printerservice.PrinterQueue;
 import eu.panco.ptprinter.receipt.ReceiptDocument;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
 
     private BluetoothService service;
 
@@ -58,7 +52,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void button2Clicked(View v) {
-        service = new BluetoothService();
+        if (service == null) service = new BluetoothService();
+
         service.discoverDevice();
     }
 

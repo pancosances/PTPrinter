@@ -12,8 +12,12 @@ public class BluetoothPrinter {
 
     private final String name = "BluetoothPrinter";
     private final String address = "0F:03:E0:51:54:84";
-    private final PrinterId id;
+    private PrinterId id;
     private PrinterInfo.Builder infoBuilder;
+
+    public BluetoothPrinter() {
+
+    }
 
     public BluetoothPrinter(PrintService service) {
         this.id = service.generatePrinterId(name);

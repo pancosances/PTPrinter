@@ -24,6 +24,7 @@ public class BluetoothService {
 
     private final UUID MY_UUID = UUID.fromString("0001101-0000-1000-8000-00805F9B34FB");
 
+    private DiscoveringDevice discoveringThread;
     private ConnectingDevice connectingThread;
     private ConnectedDevice connectedThread;
 
@@ -37,18 +38,30 @@ public class BluetoothService {
     public UUID getUuid() { return this.MY_UUID; }
 
     public BluetoothPrinter discoverDevice() {
-        if (!adapter.isEnabled()) adapter.enable();
-        if (adapter.isDiscovering()) adapter.cancelDiscovery();
-
-        this.device = adapter.getRemoteDevice("0F:03:E0:51:54:84");
-        this.connectingThread = new ConnectingDevice(this);
-        this.connectingThread.start();
+        if (discoveringThread == null) {
+            discoveringThread = new DiscoveringDevice(new BluetoothPrinter());
+            discoveringThread.start();
+        }
 
         return null;
     }
 
-    public void connectionFailed() {
+    public void discovered() {
+        if (!adapter.isEnabled()) adapter.enable();
+        if (adapter.isDiscovering()) adapter.cancelDiscovery();
 
+        if (connectingThread == null) {
+            device = adapter.getRemoteDevice("0F:03:E0:51:54:84");
+            connectingThread = new ConnectingDevice(this);
+            connectingThread.start();
+        }
+    }
+
+    public void connectionFailed() {
+        if (connectingThread != null) {
+            connectingThread.cancel();
+            connectingThread = null;
+        }
     }
 
     public void connectionLost() {
